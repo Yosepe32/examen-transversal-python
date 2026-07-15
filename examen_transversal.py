@@ -1,7 +1,5 @@
 Colección = []
 
-#cada diccionario debe incluir el titutlo del libro, copias, prestamo y disponibilidad
-
 def menu():
     print("========== MENÚ PRINCIPAL ==========")
     print("1. Agregar libro\n2. Buscar libro\n3. Eliminar libro\n4. Actualizar disponibilidad\n5. Mostrar libros\n6. Salir")
@@ -65,21 +63,36 @@ def opcion_1(Colección):
             break
         elif validación_3 == True:
             print("La duración del prestamo ha sido registrada correctamente")
-            Colección.append({"Nombre" : nom, "Cantidad de copias" : copias, "Días de prestamo" : duracion})
+            Colección.append({"Nombre" : nom, "Cantidad de copias" : copias, "Días de prestamo" : duracion, "Estado" : "Disponible"})
             break
             
             
 def opción_2(titulo_buscar, Colección):
-    for libro in Colección:
-        if titulo_buscar == libro:
-            return titulo_buscar
+    for i in Colección:
+        if i["Nombre"] == titulo_buscar:
+            print(i)
         else:
-            return print("El titulo ingresado no se encuentra en la colección de la biblioteca")
+            print(f"El libro {titulo_buscar} no se encuentra registrado en la biblioteca..")
+            
+def opción_3(titulo_buscar, Colección):
+    for i in Colección:
+        count = -1 + 1
+        if i["Nombre"] == titulo_buscar:
+            del Colección[count]
+            print("El libro se ha eliminado correctamente.")
+        else:
+            print(f"El libro {titulo_buscar} no existe en la biblioteca.")
             
 def opción_5():
+    print("=== LISTA DE LIBROS ===")
     for titulos in Colección:
-            print(titulos)
-    
+        print("********************************************")
+        print(titulos)
+        print("********************************************")
+
+def opcion_6():
+    print("Gracias por usar el sistema. Vuelva Pronto")
+    return True
     
     
 while True:
@@ -89,7 +102,13 @@ while True:
         opcion_1(Colección)
     elif op == 2:
         titulo_buscar = str(input("Ingrese el titulo del libro que desea pedir: "))
-        opción_2()
+        opción_2(titulo_buscar, Colección)
+    elif op == 3:
+        titulo_buscar = str(input("Ingrese el titulo del nombre que desea eliminar: "))
+        opción_3(titulo_buscar, Colección)
     elif op == 5:
         opción_5()
-    
+    elif op == 6:
+        finalización = opcion_6()
+        if finalización == True:
+            break    
